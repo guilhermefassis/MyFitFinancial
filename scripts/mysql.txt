@@ -1,0 +1,5 @@
+USE mysql;
+CREATE USER 'root1'@'localhost' IDENTIFIED BY 'root';
+GRANT ALL ON *.* TO 'root1'@'localhost';
+FLUSH PRIVILEGES;
+CREATE DATABASE fitfinancial;

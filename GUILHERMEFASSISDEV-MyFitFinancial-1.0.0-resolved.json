@@ -1,0 +1,1023 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "My Fit Financial API",
+    "description": "API de controle financeiro My Fit Financial",
+    "contact": {
+      "email": "guilhermefassis-dev@outlook.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/GUILHERMEFASSISDEV/MyFitFinancial/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "security": [
+    {
+      "auth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Autenticação do usuario"
+    },
+    {
+      "name": "revenue",
+      "description": "Administração dos capitais de receita"
+    },
+    {
+      "name": "spending",
+      "description": "Administração dos capitais de gastos"
+    },
+    {
+      "name": "balance",
+      "description": "Saldos totais"
+    }
+  ],
+  "paths": {
+    "/revenue": {
+      "get": {
+        "tags": [
+          "revenue"
+        ],
+        "summary": "Recupera a receita do usuario",
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "description": "Passe o mês que deseja recuperar a receita",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevenueResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ruim",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Faça login para acessar essa funcionalidade",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "revenue"
+        ],
+        "summary": "Cria uma nova receita para o usuario",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevenueDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Criado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Revenue"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Item já exite no repositorio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/revenue/{id}": {
+      "get": {
+        "tags": [
+          "revenue"
+        ],
+        "summary": "Recupera a receita do usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Passe o id para retornar o valor",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Revenue"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ruim",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Faça login para acessar essa funcionalidade",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "revenue"
+        ],
+        "summary": "Atualiza o valor de uma receita para o usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Passe o id para atualizar o valor",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevenueDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Revenue"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "revenue"
+        ],
+        "summary": "Deleta uma receita do usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Passe o id para deletar o valor",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/spending": {
+      "get": {
+        "tags": [
+          "spending"
+        ],
+        "summary": "Recupera os gastos totais",
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "description": "Passe o mês que deseja recuperar a receita",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpendingResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ruim",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Faça login para acessar essa funcionalidade",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "spending"
+        ],
+        "summary": "Cria um novo gasto para o usuario",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpendingDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Criado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Spending"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Item já exite no repositorio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/spending/{id}": {
+      "get": {
+        "tags": [
+          "spending"
+        ],
+        "summary": "Recupera os gastos totais",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Passe o id para retornar o valor",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Spending"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ruim",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Faça login para acessar essa funcionalidade",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "spending"
+        ],
+        "summary": "Atualiza o valor de um gasto para o usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Passe o id para atualizar o valor",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpendingDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Spending"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "spending"
+        ],
+        "summary": "Deleta um gasto do usuario",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Passe o id para deletar o valor",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro na request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/balance": {
+      "get": {
+        "tags": [
+          "balance"
+        ],
+        "summary": "recupera a razao de receita por gastos",
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "description": "O mes que precisa do saldo",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Balance"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ruim",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Faça login para acessar essa funcionalidade",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Cria um novo usuario",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Novo usuario criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_201"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entrada invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Item já exite no repositorio",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Fazer login, para obter o token bearer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição ruim",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciais erradas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Revenue": {
+        "required": [
+          "description",
+          "id",
+          "paymentDate",
+          "type",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "description": {
+            "type": "string",
+            "format": "text",
+            "example": "Receita fixa de março"
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "example": 120.1
+          },
+          "type": {
+            "type": "integer",
+            "format": "enum"
+          }
+        }
+      },
+      "RevenueDTO": {
+        "required": [
+          "description",
+          "paymentDate",
+          "type",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "format": "text",
+            "example": "Receita fixa de março"
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "example": 120.1
+          },
+          "type": {
+            "type": "integer",
+            "format": "enum"
+          }
+        }
+      },
+      "Spending": {
+        "required": [
+          "description",
+          "id",
+          "paymentDate",
+          "type",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          },
+          "description": {
+            "type": "string",
+            "format": "text",
+            "example": "Gasto fixo de março"
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "example": 120.1
+          },
+          "type": {
+            "type": "integer",
+            "format": "enum"
+          }
+        }
+      },
+      "SpendingDTO": {
+        "required": [
+          "description",
+          "paymentDate",
+          "type",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "format": "text",
+            "example": "Gasto fixo de março"
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "value": {
+            "type": "number",
+            "format": "double",
+            "example": 120.1
+          },
+          "type": {
+            "type": "integer",
+            "format": "enum"
+          }
+        }
+      },
+      "Balance": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "format": "number",
+            "example": 10
+          },
+          "totalBalance": {
+            "type": "number",
+            "format": "double",
+            "example": 1554.2
+          }
+        }
+      },
+      "RevenueResponse": {
+        "type": "object",
+        "properties": {
+          "amountOfItems": {
+            "type": "integer",
+            "format": "number",
+            "example": 10
+          },
+          "totalBalance": {
+            "type": "number",
+            "format": "double",
+            "example": 1554.2
+          },
+          "Revenues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Revenue"
+            }
+          }
+        }
+      },
+      "SpendingResponse": {
+        "type": "object",
+        "properties": {
+          "amountOfItems": {
+            "type": "integer",
+            "format": "number",
+            "example": 10
+          },
+          "totalBalance": {
+            "type": "number",
+            "format": "double",
+            "example": 1554.2
+          },
+          "Revenues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Spending"
+            }
+          }
+        }
+      },
+      "ErrorMessage": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "format": "StatusCode",
+            "example": "4**"
+          },
+          "message": {
+            "type": "string",
+            "format": "text",
+            "example": "Error message"
+          }
+        }
+      },
+      "NewUser": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string",
+            "format": "textName",
+            "example": "UserName"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "username@email.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "format": "password"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "string",
+            "format": "textName",
+            "example": "userName"
+          },
+          "password": {
+            "type": "string",
+            "format": "password"
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "format": "text",
+            "example": "Deletado com sucesso!"
+          }
+        }
+      },
+      "inline_response_201": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "format": "message",
+            "example": "success"
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "format": "token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
